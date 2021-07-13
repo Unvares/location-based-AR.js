@@ -1,0 +1,7 @@
+# SSL-sertificates for localhost
+SSL/
+*.pem
+*.key
+
+# Settings for VScode on local machine
+.vscode/
