@@ -3,6 +3,8 @@
         currentPosition = 0,
         currentTranslate = 0,
         prevTranslate = 0,
+        scalingCoefficient = 200, // the bigger it is, the slower is scaling
+        scaleAmount = initialScale,
         isScrolling = false,
         animationID,
         whichTouch;
@@ -21,20 +23,34 @@
 
     function scrollingMove(event) {
         currentPosition = getTouchPosition(event);
-        currentTranslate = prevTranslate + startPosition - currentPosition;
+        currentTranslate = getCurrentTranslate(); 
     }
 
     function scrollingEnd() {
         isScrolling = false;
         cancelAnimationFrame(animationID);
         prevTranslate = currentTranslate;
+        console.log(scaleAmount);
     }
 
     function scaling() {
-        let scaleAmount = 1 + currentTranslate/200;
+        scaleAmount = initialScale + (currentTranslate / scalingCoefficient);
         tramModel.setAttribute('scale', `${scaleAmount} ${scaleAmount} ${scaleAmount}`);
         if(isScrolling) {
             requestAnimationFrame(scaling);
+        }
+    }
+    function getCurrentTranslate() {
+        let currentTranslate =  prevTranslate + startPosition - currentPosition;
+        let minTranslate = -scalingCoefficient * (initialScale - 0.05);
+        let maxTranslate = scalingCoefficient * (15 - initialScale);
+
+        if(currentTranslate > minTranslate && currentTranslate < maxTranslate) {
+            return prevTranslate + startPosition - currentPosition;
+        } else if(currentTranslate >= maxTranslate) {
+            return maxTranslate;
+        } else {
+            return minTranslate;
         }
     }
     function getTouchPosition(event) {

@@ -33,6 +33,7 @@
     align-items: flex-start;
 }
 .control-panel__rotationCircle {
+    margin-left: 10vw;
     width: 15vw;
 }
 .control-panel__rotationImage {

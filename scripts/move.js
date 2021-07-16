@@ -34,7 +34,7 @@
     function moving() {
         let translateX = initialPosition[0] + currentTranslate[0] / 10;
         let translateZ = initialPosition[2] + currentTranslate[1] / 10;
-        tramModel.setAttribute('position', `${translateX} 0 ${translateZ}`);
+        tramModel.setAttribute('position', `${translateX} ${initialPosition[1]} ${translateZ}`);
         if(isMoving) {
             requestAnimationFrame(moving);
         }

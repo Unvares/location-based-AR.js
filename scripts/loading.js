@@ -1,5 +1,6 @@
 let tramModel;
-let initialPosition = [0, 0, -8];
+let initialPosition = [0, -20, -50],
+    initialScale = 1;
 
 {
     loadingButton.addEventListener('touchstart', buttonTouchStart);
@@ -12,6 +13,9 @@ let initialPosition = [0, 0, -8];
 
     function buttonTouchEnd() {
         loadingButton.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
+        loadingButton.style.display = 'none';
+        controlPanel.style.display = 'flex';
+        document.documentElement.requestFullscreen();
     }
 
     function loadContent() {
@@ -19,15 +23,12 @@ let initialPosition = [0, 0, -8];
         scene.append(content);
 
         content.setAttribute('gltf-model', '#tram');
-        content.setAttribute('scale', '1 1 1');
+        content.setAttribute('scale', `${initialScale} ${initialScale} ${initialScale}`);
         setTimeout(() => {
             content.setAttribute('position', `${initialPosition[0]} ${initialPosition[1]} ${initialPosition[2]}`);
         }, 500);
 
         content.classList.add('tramModel');
         tramModel = content;
-
-        loadingButton.style.display = 'none';
-        controlPanel.style.display = 'flex';
     }
 }
