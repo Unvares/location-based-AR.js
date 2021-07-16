@@ -1,4 +1,9 @@
-{
+{  
+    // settings
+    let minScale = 0.05,
+        maxScale = 6;
+
+
     let startPosition = 0,
         currentPosition = 0,
         currentTranslate = 0,
@@ -42,8 +47,8 @@
     }
     function getCurrentTranslate() {
         let currentTranslate =  prevTranslate + startPosition - currentPosition;
-        let minTranslate = -scalingCoefficient * (initialScale - 0.05);
-        let maxTranslate = scalingCoefficient * (15 - initialScale);
+        let minTranslate = -scalingCoefficient * (initialScale - minScale);
+        let maxTranslate = scalingCoefficient * (maxScale - initialScale);
 
         if(currentTranslate > minTranslate && currentTranslate < maxTranslate) {
             return prevTranslate + startPosition - currentPosition;

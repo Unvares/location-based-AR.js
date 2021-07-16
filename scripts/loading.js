@@ -1,21 +1,20 @@
 let tramModel;
-let initialPosition = [0, -20, -50],
-    initialScale = 1;
+let initialPosition = [0, 1, -2],
+    initialScale = 0.1;
 
 {
     loadingButton.addEventListener('touchstart', buttonTouchStart);
     loadingButton.addEventListener('touchend', buttonTouchEnd);
 
     function buttonTouchStart() {
-        loadingButton.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+        loadingButton.classList.add('UI__button_active');
         loadContent();
     }
 
     function buttonTouchEnd() {
-        loadingButton.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
+        loadingButton.classList.remove('UI__button_active');
         loadingButton.style.display = 'none';
         controlPanel.style.display = 'flex';
-        document.documentElement.requestFullscreen();
     }
 
     function loadContent() {

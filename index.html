@@ -16,19 +16,23 @@
 </head>
 <body>
 	<div class="UI">
-		<div class="UI__button">load model</div>
+		<div class="UI__button UI__loading-button">load model</div>
 		<div class="control-panel">
 			<div class="control-panel__left">
-				<div class="control-panel__rotationCircle">
-					<img src="images/circle.png" class="control-panel__rotationImage">
+				<div class="control-panel__rotation-circle">
+					<img src="images/circle.png" class="control-panel__rotation-image">
+				</div>
+				<div class="control-panel__buttons">
+					<div class="UI__button control-panel__button">1:1</div>
+					<div class="UI__button control-panel__button">Fullscreen</div>
 				</div>
 			</div>
 			<div class="control-panel__right">
-				<div class="control-panel__positionController">
-					<img src="images/cross-arrow.png" class="control-panel__crossImage">
+				<div class="control-panel__position-controller">
+					<img src="images/cross-arrow.png" class="control-panel__cross-image">
 				</div>
-				<div class="control-panel__scaleScroller">
-					<img src="images/two-sided-arrow.png" class="control-panel__scaleImage">
+				<div class="control-panel__scale-scroller">
+					<img src="images/two-sided-arrow.png" class="control-panel__scale-image">
 				</div>
 			</div>
 		</div>
@@ -40,6 +44,7 @@
 		<a-camera gps-camera rotation-reader></a-camera>
 	</a-scene>
 	<script src="scripts/constants.js"></script>
+	<script src="scripts/controlButtons.js"></script>
 	<script src="scripts/loading.js"></script>
 	<script src="scripts/scale.js"></script>
 	<script src="scripts/rotation.js"></script>
