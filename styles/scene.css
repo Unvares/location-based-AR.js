@@ -1,0 +1,4 @@
+.tramModel {
+    /* Doesn't work for a-frame attributes */
+    transition: 0.5s ease-in-out;
+}

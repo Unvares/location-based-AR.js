@@ -2,7 +2,8 @@
     z-index: 1; /* is used to prevent a-scene from overlaying UI */
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+    left: 0; top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,4 +20,70 @@
     transition: background-color 0.2s ease-out;
     border: solid 3px #333;
     border-radius: 5px;
+}
+.control-panel {
+    position: fixed;
+    display: none;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100%;
+}
+.control-panel__left {
+    display: flex;
+    align-items: flex-start;
+}
+.control-panel__rotationCircle {
+    width: 15vw;
+}
+.control-panel__rotationImage {
+    width: 100%;
+}
+.control-panel__right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.control-panel__scaleScroller {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 100%;
+}
+.control-panel__scaleImage {
+    height: 80vh
+}
+.control-panel__positionController {
+    width: 15vw;
+    align-self: flex-end;
+    margin-right: 20px;
+}
+
+.control-panel__crossImage {
+    width: 100%;
+}
+
+/* is used in dev purposes 
+.control-panel__rotationCircle,
+.control-panel__scaleScroller,
+.control-panel__positionController {
+    background-color: rgba(209, 109, 190, 0.5);
+} */
+
+@media screen and (orientation: portrait) {
+    .control-panel__left {
+        align-items: flex-end;
+    }
+    .control-panel__rotationCircle {
+        width: 30vw;
+    }
+    .control-panel__positionController {
+        width: 30vw;
+    }
+    .control-panel__scaleImage {
+        height: 100%;
+    }
+    .control-panel__scaleScroller {
+        height: 40%;
+    }
 }

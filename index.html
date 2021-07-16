@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>AR.js</title>
 
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="styles/UI.css">
+	<link rel="stylesheet" href="styles/scene.css">
 
 	<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
@@ -16,14 +17,32 @@
 <body>
 	<div class="UI">
 		<div class="UI__button">load model</div>
+		<div class="control-panel">
+			<div class="control-panel__left">
+				<div class="control-panel__rotationCircle">
+					<img src="images/circle.png" class="control-panel__rotationImage">
+				</div>
+			</div>
+			<div class="control-panel__right">
+				<div class="control-panel__positionController">
+					<img src="images/cross-arrow.png" class="control-panel__crossImage">
+				</div>
+				<div class="control-panel__scaleScroller">
+					<img src="images/two-sided-arrow.png" class="control-panel__scaleImage">
+				</div>
+			</div>
+		</div>
 	</div>
 	<a-scene vr-mode-ui="enabled: false">
 		<a-assets>
 			<a-asset-item id="tram" src="assets/scene.glb"></a-asset-item>
 		</a-assets>
-		<a-entity gltf-model="#tram" position="0 0 -8"></a-entity>
 		<a-camera gps-camera rotation-reader></a-camera>
 	</a-scene>
-	<script src="scripts/UI.js"></script>
+	<script src="scripts/constants.js"></script>
+	<script src="scripts/loading.js"></script>
+	<script src="scripts/scale.js"></script>
+	<script src="scripts/rotation.js"></script>
+	<script src="scripts/move.js"></script>
 </body>
 </html>

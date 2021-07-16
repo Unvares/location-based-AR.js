@@ -5,8 +5,12 @@ window.oncontextmenu = function(e) {
     e.preventDefault();
     e.stopPropagation();
 }
+
+// manually setting a-scene geolocation equal to device geolocation when page is loaded
 window.onload = function() {
-    // manually setting a-scene geolocation equal to device geolocation when page is loaded
+    document.documentElement.requestFullscreen();
+    // console.log(document.documentElement.requestFullscreen());
+
     let scene = document.querySelector('a-scene');
     
     if(navigator.geolocation) {
