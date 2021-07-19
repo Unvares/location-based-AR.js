@@ -7,6 +7,8 @@ const UI = document.querySelector('.UI');
 // UI elements
 const loadingButton = UI.querySelector('.UI__button');
 const controlButtons = UI.querySelectorAll('.control-panel__button');
+const scalingButton = controlButtons[0],
+      fullscreenButton = controlButtons[1];
 const controlPanel = UI.querySelector('.control-panel');
 const rotationCircle = UI.querySelector('.control-panel__rotation-circle');
 const positionController = UI.querySelector('.control-panel__position-controller');

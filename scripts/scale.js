@@ -8,7 +8,7 @@
         currentPosition = 0,
         currentTranslate = 0,
         prevTranslate = 0,
-        scalingCoefficient = 200, // the bigger it is, the slower is scaling
+        scalingCoefficient = 500, // the bigger it is, the slower is scaling
         scaleAmount = initialScale,
         isScrolling = false,
         animationID,

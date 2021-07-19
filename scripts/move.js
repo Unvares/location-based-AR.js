@@ -3,6 +3,7 @@
         currentPosition = [0, 0],
         currentTranslate = [0, 0],
         prevTranslate = [0, 0],
+        movingCoefficient = 60, // the bigger it is, the slower is moving
         isMoving = false,
         animationID,
         whichTouch;
@@ -32,8 +33,8 @@
     }
 
     function moving() {
-        let translateX = initialPosition[0] + currentTranslate[0] / 10;
-        let translateZ = initialPosition[2] + currentTranslate[1] / 10;
+        let translateX = initialPosition[0] + currentTranslate[0] / movingCoefficient;
+        let translateZ = initialPosition[2] + currentTranslate[1] / movingCoefficient;
         tramModel.setAttribute('position', `${translateX} ${initialPosition[1]} ${translateZ}`);
         if(isMoving) {
             requestAnimationFrame(moving);
