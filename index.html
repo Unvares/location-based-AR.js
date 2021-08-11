@@ -8,23 +8,18 @@
 	<link rel="stylesheet" href="styles/common.css">
 	<link rel="stylesheet" href="styles/UI.css">
 	<link rel="stylesheet" href="styles/scene.css">
-
-	<script src="scripts/aframe.min.js"></script>
-    <script src="scripts/aframe-look-at-component.min.js"></script>
-    <script src="scripts/aframe-ar-nft.js"></script>
-	<script src="scripts/init.js"></script>
 </head>
 <body>
 	<div class="UI">
-		<div class="UI__button UI__loading-button">load model</div>
+		<div class="UI__button UI__button_loading">load model</div>
 		<div class="control-panel">
 			<div class="control-panel__left">
 				<div class="control-panel__rotation-circle">
 					<img src="images/circle.png" class="control-panel__rotation-image">
 				</div>
 				<div class="control-panel__buttons">
-					<div class="UI__button control-panel__button">1:1</div>
-					<div class="UI__button control-panel__button">Fullscreen</div>
+					<div class="control-panel__button">1:1</div>
+					<div class="control-panel__button">Fullscreen</div>
 				</div>
 			</div>
 			<div class="control-panel__right">
@@ -43,11 +38,15 @@
 		</a-assets>
 		<a-camera gps-camera rotation-reader></a-camera>
 	</a-scene>
-	<script src="scripts/constants.js"></script>
-	<script src="scripts/controlButtons.js"></script>
-	<script src="scripts/loading.js"></script>
-	<script src="scripts/scale.js"></script>
-	<script src="scripts/rotation.js"></script>
-	<script src="scripts/move.js"></script>
+	<script defer src="scripts/aframe.min.js"></script>
+    <script defer src="scripts/aframe-look-at-component.min.js"></script>
+    <script defer src="scripts/aframe-ar-nft.js"></script>
+	<script defer src="scripts/init.js"></script>
+	<script defer src="scripts/constants.js"></script>
+	<script defer src="scripts/controlButtons.js"></script>
+	<script defer src="scripts/loading.js"></script>
+	<script defer src="scripts/scale.js"></script>
+	<script defer src="scripts/rotation.js"></script>
+	<script defer src="scripts/move.js"></script>
 </body>
 </html>
