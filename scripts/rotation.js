@@ -7,9 +7,9 @@
         animationID,
         whichTouch;
 
-    rotationCircle.addEventListener('touchstart', rotationStart);
-    rotationCircle.addEventListener('touchmove', rotationMove);
-    rotationCircle.addEventListener('touchend', rotationEnd);
+    globalAR.rotationCircle.addEventListener('touchstart', rotationStart);
+    globalAR.rotationCircle.addEventListener('touchmove', rotationMove);
+    globalAR.rotationCircle.addEventListener('touchend', rotationEnd);
 
     function rotationStart(event) {
         whichTouch = (event.touches[2]) ? 2 :

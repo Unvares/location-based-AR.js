@@ -8,9 +8,9 @@
         animationID,
         whichTouch;
 
-    positionController.addEventListener('touchstart', moveStart);
-    positionController.addEventListener('touchmove', moveMove);
-    positionController.addEventListener('touchend', moveEnd);
+    globalAR.positionController.addEventListener('touchstart', moveStart);
+    globalAR.positionController.addEventListener('touchmove', moveMove);
+    globalAR.positionController.addEventListener('touchend', moveEnd);
 
     function moveStart(event) {
         whichTouch = (event.touches[2]) ? 2 :
@@ -35,7 +35,7 @@
     function moving() {
         let translateX = initialPosition[0] + currentTranslate[0] / movingCoefficient;
         let translateZ = initialPosition[2] + currentTranslate[1] / movingCoefficient;
-        tramModel.setAttribute('position', `${translateX} ${initialPosition[1]} ${translateZ}`);
+        globalAR.tramModel.setAttribute('position', `${translateX} ${globalAR.settings.initialTramTransform.position.y} ${translateZ}`);
         if(isMoving) {
             requestAnimationFrame(moving);
         }

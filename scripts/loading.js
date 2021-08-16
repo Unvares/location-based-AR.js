@@ -1,4 +1,3 @@
-let tramModel;
 let initialPosition = [0, 1, -2],
     initialScale = 0.1;
 

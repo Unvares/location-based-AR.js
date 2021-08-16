@@ -1,76 +1,42 @@
 {
-    let targets;
-
-    scalingButton.addEventListener('touchend', toggleScaling);
-    fullscreenButton.addEventListener('touchend', toggleFullscreen);
+    globalAR.scalingButton.addEventListener('touchend', toggleScaling);
+    globalAR.fullscreenButton.addEventListener('touchend', toggleFullscreen);
 
     function toggleFullscreen() {
         if(document.fullscreenElement) {
             document.exitFullscreen();
-            fullscreenButton.classList.remove('UI__button_active');
+            globalAR.fullscreenButton.classList.remove('UI__button_active');
         } else {
             document.documentElement.requestFullscreen();
-            fullscreenButton.classList.add('UI__button_active');
+            globalAR.fullscreenButton.classList.add('UI__button_active');
         }
     }
 
     function toggleScaling() {
-        if(scalingButton.classList.contains('UI__button_active')) {
-            scalingButton.classList.remove('UI__button_active');
-
-            targets = {
-                position: {
-                    x: 0,
-                    y: 1,
-                    z: -2
-                },
-                rotation: {
-                    x: 0,
-                    y: 0,
-                    z: 0
-                },
-                scale: {
-                    x: 0.1,
-                    y: 0.1,
-                    z: 0.1
-                }
-            };
-
-            requestAnimationFrame(scaling);
+        if(globalAR.scalingButton.classList.contains('UI__button_active')) {
+            console.log('initial scaling');
+            globalAR.scalingButton.classList.remove('UI__button_active');
+            requestAnimationFrame( () => {
+                scaling(globalAR.settings.initialTramTransform);
+            });
         } else {
-            console.log('toggleScaling');
-            scalingButton.classList.add('UI__button_active');
-
-            targets = {
-                position: {
-                    x: 0,
-                    y: 0,
-                    z: 0
-                },
-                rotation: {
-                    x: 0,
-                    y: 0,
-                    z: 0
-                },
-                scale: {
-                    x: 1,
-                    y: 1,
-                    z: 1
-                }
-            };
-            requestAnimationFrame(scaling);
+            console.log('1:1 scaling');
+            globalAR.scalingButton.classList.add('UI__button_active');
+            requestAnimationFrame( () => {
+                scaling(globalAR.settings.zoomTramTransform);
+            });
         }
     }
 
-    function scaling() {
+    function scaling(settings) {
         console.log('scaling');
-        let tramPosition = tramModel.getAttribute('position'),
-            tramRotation = tramModel.getAttribute('rotation'),
-            tramScale = tramModel.getAttribute('scale');
+        let tramPosition = globalAR.tramModel.getAttribute('position');
+        let tramRotation = globalAR.tramModel.getAttribute('rotation');
+        let tramScale = globalAR.tramModel.getAttribute('scale');
         
-        scaleFrame(tramPosition, targets.position);
-        scaleFrame(tramRotation, targets.rotation);
-        scaleFrame(tramScale, targets.scale);
+        scaleFrame(tramPosition, settings.position);
+        scaleFrame(tramRotation, settings.rotation);
+        scaleFrame(tramScale, settings.scale);
 
         setDimensionAttribute(tramModel, 'position', tramPosition);
         setDimensionAttribute(tramModel, 'rotation', tramRotation);
@@ -92,7 +58,7 @@
             return;
         }
         for(let i = 0; i < 3; i++) {
-            let dimensions = ['x', 'y', 'z'];
+            const dimensions = ['x', 'y', 'z'];
             property[dimensions[i]] = (property[dimensions[i]] > target[dimensions[i]]) ?
                 property[dimensions[i]] - 0.1 :
                 (property[dimensions[i]] == target[dimensions[i]]) ?
@@ -105,18 +71,18 @@
         element.setAttribute(name, `${value.x} ${value.y} ${value.z}`);
     }
 
-    function didItScale(properties, targets) {
+    function didItScale(properties, settings) {
         let result = 0;
-        targets = [targets.position, targets.rotation, targets.scale];
+        settings = [settings.position, settings.rotation, settings.scale];
         
         for(let i = 0; i < properties.length; i++) {
-            if (properties[i].x == targets[i].x &&
-                properties[i].y == targets[i].y &&
-                properties[i].z == targets[i].z) {
+            if (properties[i].x == settings[i].x &&
+                properties[i].y == settings[i].y &&
+                properties[i].z == settings[i].z) {
                     result++;
                 }
         }
 
-        return (result == targets.length);
+        return (result == settings.length);
     }
 }

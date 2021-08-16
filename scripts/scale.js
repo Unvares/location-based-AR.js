@@ -1,9 +1,4 @@
-{  
-    // settings
-    let minScale = 0.05,
-        maxScale = 6;
-
-
+{
     let startPosition = 0,
         currentPosition = 0,
         currentTranslate = 0,
@@ -14,9 +9,9 @@
         animationID,
         whichTouch;
 
-    scaleScroller.addEventListener('touchstart', scrollingStart);
-    scaleScroller.addEventListener('touchmove', scrollingMove);
-    scaleScroller.addEventListener('touchend', scrollingEnd);
+    globalAR.scaleScroller.addEventListener('touchstart', scrollingStart);
+    globalAR.scaleScroller.addEventListener('touchmove', scrollingMove);
+    globalAR.scaleScroller.addEventListener('touchend', scrollingEnd);
 
     function scrollingStart(event) {
         whichTouch = (event.touches[2]) ? 2 :
@@ -53,9 +48,9 @@
         if(currentTranslate > minTranslate && currentTranslate < maxTranslate) {
             return prevTranslate + startPosition - currentPosition;
         } else if(currentTranslate >= maxTranslate) {
-            return maxTranslate;
+            return globalAR.settings.maxTramScale;
         } else {
-            return minTranslate;
+            return globalAR.settings.minTramScale;
         }
     }
     function getTouchPosition(event) {
