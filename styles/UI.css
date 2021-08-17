@@ -19,17 +19,6 @@
     border: solid 3px #333;
     border-radius: 5px;
 }
-.UI__button_active {
-    background-color: #fff;
-    border: solid 3px #333;
-}
-.UI__button_loading {
-    width: 200px;
-    height: 80px;
-}
-.UI__button_unclickable {
-    user-select: none;
-}
 
 .control-panel {
     position: fixed;
@@ -86,6 +75,18 @@
 
 .control-panel__cross-image {
     width: 100%;
+}
+
+.UI__button_active {
+    background-color: #fff;
+    border: solid 3px #333;
+}
+.UI__button_loading {
+    width: 200px;
+    height: 80px;
+}
+.UI__button_unclickable {
+    user-select: none;
 }
 
 /* used in dev purposes 
