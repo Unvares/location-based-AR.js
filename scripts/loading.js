@@ -1,32 +1,22 @@
-let initialPosition = [0, 1, -2],
-    initialScale = 0.1;
+globalAR.loadingButton.addEventListener('touchend', loadContent);
 
-{
-    loadingButton.addEventListener('touchstart', buttonTouchStart);
-    loadingButton.addEventListener('touchend', buttonTouchEnd);
+function loadContent() {
+    globalAR.loadingButton.classList.add('UI__button_unclickable');
 
-    function buttonTouchStart() {
-        loadingButton.classList.add('UI__button_active');
-        loadContent();
-    }
+    let content = document.createElement('a-entity');
+    globalAR.scene.append(content);
 
-    function buttonTouchEnd() {
-        loadingButton.classList.remove('UI__button_active');
-        loadingButton.style.display = 'none';
-        controlPanel.style.display = 'flex';
-    }
+    content.setAttribute('gltf-model', '#tram');
+    content.setAttribute('scale', `${globalAR.settings.initialTransform.scale.x}
+                                   ${globalAR.settings.initialTransform.scale.y}
+                                   ${globalAR.settings.initialTransform.scale.z}`);
+    content.setAttribute('position', `${globalAR.settings.initialTransform.position.x}
+                                      ${globalAR.settings.initialTransform.position.y}
+                                      ${globalAR.settings.initialTransform.position.z}`);
 
-    function loadContent() {
-        let content = document.createElement('a-entity');
-        scene.append(content);
+    content.classList.add('tramModel');
+    globalAR.tramModel = content;
 
-        content.setAttribute('gltf-model', '#tram');
-        content.setAttribute('scale', `${initialScale} ${initialScale} ${initialScale}`);
-        setTimeout(() => {
-            content.setAttribute('position', `${initialPosition[0]} ${initialPosition[1]} ${initialPosition[2]}`);
-        }, 500);
-
-        content.classList.add('tramModel');
-        tramModel = content;
-    }
+    loadingButton.style.display = 'none';
+    controlPanel.style.display = 'flex';
 }

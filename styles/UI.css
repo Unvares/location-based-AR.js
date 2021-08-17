@@ -27,6 +27,10 @@
     width: 200px;
     height: 80px;
 }
+.UI__button_unclickable {
+    user-select: none;
+}
+
 .control-panel {
     position: fixed;
     display: none;
@@ -84,7 +88,7 @@
     width: 100%;
 }
 
-/* is used in dev purposes 
+/* used in dev purposes 
 .control-panel__rotationCircle,
 .control-panel__scaleScroller,
 .control-panel__positionController {
