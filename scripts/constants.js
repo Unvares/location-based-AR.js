@@ -26,11 +26,12 @@ const globalAR = {
     // scene settings
 
     settings: {
-        ignoredDifference: 0.2, // parameter used for toggling between initial and 1:1 scaling in ../controlButtons.js
-        movingCoefficient: 60, // the bigger it is, the slower is moving
+        scaleSpeed: 0.1,         // parameter used for toggling between initial and 1:1 scaling in ../controlButtons.js
+        ignoredDifference: 0.2,  // parameter used for toggling between initial and 1:1 scaling in ../controlButtons.js
+        movingCoefficient: 60,   // the bigger it is, the slower is moving
         scalingCoefficient: 500, // the bigger it is the slower is scaling
         minTramScale: 0.1,
-        maxTramScale: 6,
+        maxTramScale: 0.5,
         initialTransform: {
             position: {
                 x: 0,

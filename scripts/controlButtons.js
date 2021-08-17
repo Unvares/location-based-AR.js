@@ -18,6 +18,7 @@ function toggleScaling() {
             scaling(globalAR.settings.initialTransform);
         });
     } else {
+        animating = true;
         globalAR.scalingButton.classList.add('UI__button_active');
         requestAnimationFrame( () => {
             scaling(globalAR.settings.zoomTransform);
@@ -31,7 +32,7 @@ function scaling(targetValueObject) {
     let tramScale = globalAR.tramModel.getAttribute('scale');
 
     tramPosition = scaleFrame(tramPosition, targetValueObject.position);
-    tramRotation = scaleFrame(tramRotation, targetValueObject.rotation);
+    tramRotation = scaleFrame(tramRotation, targetValueObject.rotation, true);
     tramScale = scaleFrame(tramScale, targetValueObject.scale);
 
     setTransform(globalAR.tramModel, 'position', tramPosition);
@@ -45,8 +46,16 @@ function scaling(targetValueObject) {
     }
 }
 
-function scaleFrame(currentValueObject, targetValueObject) {
-    const diff = globalAR.settings.ignoredDifference;
+function scaleFrame(currentValueObject, targetValueObject, x50) {
+    let diff = globalAR.settings.ignoredDifference;
+    let scaleSpeed = globalAR.settings.scaleSpeed;
+    let notRotation;
+
+    // x50 is a parameter used to increase speed of rotation
+    if(x50) {
+        diff *= 50;
+        scaleSpeed *= 50;
+    }
 
     if(currentValueObject.x < targetValueObject.x + diff && currentValueObject.x > targetValueObject.x - diff &&
        currentValueObject.y < targetValueObject.y + diff && currentValueObject.y > targetValueObject.y - diff &&
@@ -60,9 +69,10 @@ function scaleFrame(currentValueObject, targetValueObject) {
         const dimensions = ['x', 'y', 'z'];
 
         if (result[dimensions[i]] > targetValueObject[dimensions[i]]) {
-            result[dimensions[i]] -= 0.1;
+            console.log(dimensions[i]);
+            result[dimensions[i]] -= scaleSpeed;
         } else {
-            result[dimensions[i]] += 0.1;
+            result[dimensions[i]] += scaleSpeed;
         }
     }
 
