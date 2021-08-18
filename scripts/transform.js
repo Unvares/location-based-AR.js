@@ -1,3 +1,5 @@
+'use strict'
+
 class Transform {
     constructor(attributeType) {
         this.actionType = (attributeType == 'position') ? 'moving'   :
@@ -32,7 +34,7 @@ class Transform {
         return [event.touches[touchNumber].clientX, event.touches[touchNumber].clientY];
     }
 
-    actionEnd(event) {
+    actionEnd() {
         this.isGoing = false;
         cancelAnimationFrame(this.animationID);
         this.prevTranslate = this.currentTranslate.concat();
@@ -42,28 +44,16 @@ class Transform {
         this.currentPosition = this.getTouchPosition(event, this.touchNumber);
         this.getCurrentTranslate(this.actionType);        
     }
+}
 
-    getCurrentTranslate(actionType) {
-        const currentTranslateX = this.prevTranslate[0] + this.startPosition[0] - this.currentPosition[0];
-        const currentTranslateY = this.prevTranslate[1] + this.startPosition[1] - this.currentPosition[1];
+class TransformPosition extends Transform {
+    constructor(attributeType) {
+        super(attributeType);
+    }
 
-        if(this.actionType == 'scaling') {
-            const minTranslate = -this.coefficient * (globalAR.settings.initialTransform.scale.y - globalAR.settings.minTramScale);
-            const maxTranslate = this.coefficient * (globalAR.settings.maxTramScale - globalAR.settings.initialTransform.scale.y);
-
-            if(currentTranslateY > minTranslate && currentTranslateY < maxTranslate) {
-                this.currentTranslate = [currentTranslateX, currentTranslateY];
-            } else if(currentTranslateY >= maxTranslate) {
-                this.currentTranslate = [currentTranslateX, maxTranslate];
-            } else {
-                this.currentTranslate = [currentTranslateX, minTranslate];
-            }
-        } else if(this.actionType == 'rotating') {
-            this.currentTranslate = [currentTranslateX, currentTranslateY];
-        } else {
-            this.currentTranslate = [this.prevTranslate[0] + this.currentPosition[0] - this.startPosition[0],
-                                     this.prevTranslate[1] + this.currentPosition[1] - this.startPosition[1]];
-        }
+    getCurrentTranslate() {
+        this.currentTranslate = [this.prevTranslate[0] + this.currentPosition[0] - this.startPosition[0],
+                                 this.prevTranslate[1] + this.currentPosition[1] - this.startPosition[1]];
     }
 
     moving() {
@@ -73,9 +63,21 @@ class Transform {
         globalAR.tramModel.setAttribute('position', `${translateX} ${globalAR.settings.initialTransform.position.y} ${translateZ}`);
         if(this.isGoing) {
             requestAnimationFrame( () => {
-                this[this.actionType]();
+                this.moving();
             });
         }
+    }
+
+}
+
+class TransformRotation extends Transform {
+    constructor(attributeType) {
+        super(attributeType);
+    }
+
+    getCurrentTranslate() {
+        this.currentTranslate = [this.prevTranslate[0] + this.startPosition[0] - this.currentPosition[0],
+                                 this.prevTranslate[1] + this.startPosition[1] - this.currentPosition[1]];
     }
 
     rotating() {
@@ -84,8 +86,30 @@ class Transform {
         globalAR.tramModel.setAttribute('rotation', `${-rotationX} ${rotationY} 0`);
         if(this.isGoing) {
             requestAnimationFrame( () => {
-                this[this.actionType]();
+                this.rotating();
             });
+        }
+    }
+}
+
+class TransformScale extends Transform {
+    constructor(attributeType) {
+        super(attributeType);
+    }
+
+    getCurrentTranslate(actionType) {
+        const currentTranslateX = this.prevTranslate[0] + this.startPosition[0] - this.currentPosition[0];
+        const currentTranslateY = this.prevTranslate[1] + this.startPosition[1] - this.currentPosition[1];
+
+        const minTranslate = -this.coefficient * (globalAR.settings.initialTransform.scale.y - globalAR.settings.minTramScale);
+        const maxTranslate = this.coefficient * (globalAR.settings.maxTramScale - globalAR.settings.initialTransform.scale.y);
+
+        if(currentTranslateY > minTranslate && currentTranslateY < maxTranslate) {
+            this.currentTranslate = [currentTranslateX, currentTranslateY];
+        } else if(currentTranslateY >= maxTranslate) {
+            this.currentTranslate = [currentTranslateX, maxTranslate];
+        } else {
+            this.currentTranslate = [currentTranslateX, minTranslate];
         }
     }
 
@@ -94,15 +118,16 @@ class Transform {
         globalAR.tramModel.setAttribute('scale', `${scaleAmount} ${scaleAmount} ${scaleAmount}`);
         if(this.isGoing) {
             requestAnimationFrame( () => {
-                this[this.actionType]();
+                this.scaling();
             });
         }
     }
 }
 
-const positionController = new Transform('position');
-const rotationController = new Transform('rotation');
-const scaleController    = new Transform('scale');
+
+const positionController = new TransformPosition('position');
+const rotationController = new TransformRotation('rotation');
+const scaleController    = new TransformScale('scale');
 
 globalAR.rotationCircle.addEventListener('touchstart', (event) => {
     rotationController.actionStart(event);
@@ -110,8 +135,8 @@ globalAR.rotationCircle.addEventListener('touchstart', (event) => {
 globalAR.rotationCircle.addEventListener('touchmove', (event) => {
     rotationController.mouseMove(event);
 });
-globalAR.rotationCircle.addEventListener('touchend', (event) => {
-    rotationController.actionEnd(event);
+globalAR.rotationCircle.addEventListener('touchend', () => {
+    rotationController.actionEnd();
 });
 
 globalAR.positionController.addEventListener('touchstart', (event) => {
@@ -120,8 +145,8 @@ globalAR.positionController.addEventListener('touchstart', (event) => {
 globalAR.positionController.addEventListener('touchmove', (event) => {
     positionController.mouseMove(event);
 });
-globalAR.positionController.addEventListener('touchend', (event) => {
-    positionController.actionEnd(event);
+globalAR.positionController.addEventListener('touchend', () => {
+    positionController.actionEnd();
 });
 
 globalAR.scaleScroller.addEventListener('touchstart', (event) => {
@@ -130,6 +155,6 @@ globalAR.scaleScroller.addEventListener('touchstart', (event) => {
 globalAR.scaleScroller.addEventListener('touchmove', (event) => {
     scaleController.mouseMove(event);
 });
-globalAR.scaleScroller.addEventListener('touchend', (event) => {
-    scaleController.actionEnd(event);
+globalAR.scaleScroller.addEventListener('touchend', () => {
+    scaleController.actionEnd();
 });

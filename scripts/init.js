@@ -1,5 +1,7 @@
 'use strict'
 
+setTimeout(disableFullscreenButtonForSafari, 500);
+
 // disabling context menu
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
@@ -17,3 +19,18 @@ window.addEventListener('load', () => {
     });
   }
 });
+
+function disableFullscreenButtonForSafari() {
+  let check = isSafari();
+  if(check) {
+    globalAR.fullscreenButton.classList.add('dn');
+  }
+}
+
+function isSafari() {
+  var ua = navigator.userAgent.toLowerCase();
+  if(ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1) { 
+    return true;
+  }
+  return false;
+}

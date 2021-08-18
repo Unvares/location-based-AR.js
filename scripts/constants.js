@@ -1,6 +1,6 @@
 'use strict'
 
-// global object for all structures and UI elements in the project
+// global object for all structures and elements in the project
 
 const globalAR = {
 
@@ -21,18 +21,18 @@ const globalAR = {
 
     // scene elements
 
-    tramModel: undefined, // it is defined in 'loading' script after user interaction
+    tramModel: undefined,        // property is defined in loading.js after user interaction
 
     // scene settings
 
     settings: {
-        scaleSpeed: 0.1,         // parameter used for toggling between initial and 1:1 scaling in ../controlButtons.js
-        ignoredDifference: 0.2,  // parameter used for toggling between initial and 1:1 scaling in ../controlButtons.js
+        scaleSpeed: 0.1,         // parameter used for toggling between initial and 1:1 scaling in controlButtons.js
+        ignoredDifference: 0.2,  // parameter used for toggling between initial and 1:1 scaling in controlButtons.js
         movingCoefficient: 60,   // the bigger it is, the slower is moving
         scalingCoefficient: 500, // the bigger it is the slower is scaling
         minTramScale: 0.1,
         maxTramScale: 0.5,
-        initialTransform: {
+        initialTransform: {      // tram model initial transform parameters for controlButtons.js
             position: {
                 x: 0,
                 y: 1,
@@ -49,7 +49,7 @@ const globalAR = {
                 z: 0.1,
             }
         },
-        zoomTransform: {
+        zoomTransform: {         // tram model 1:1 scaling parameters for controlButtons.js
             position: {
                 x: 0,
                 y: 0,

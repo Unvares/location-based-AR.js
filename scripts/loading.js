@@ -17,6 +17,6 @@ function loadContent() {
     content.classList.add('tramModel');
     globalAR.tramModel = content;
 
-    globalAR.loadingButton.style.display = 'none';
-    globalAR.controlPanel.style.display = 'flex';
+    globalAR.loadingButton.classList.add('dn');
+    globalAR.controlPanel.classList.add('flx');
 }

@@ -89,6 +89,12 @@
     user-select: none;
 }
 
+.control-panel__rotation-image,
+.control-panel__cross-image,
+.control-panel__scale-image {
+    pointer-events: none;
+}
+
 /* used in dev purposes 
 .control-panel__rotationCircle,
 .control-panel__scaleScroller,
